@@ -1,0 +1,12 @@
+# IDE-specific and temporary files
+/.settings
+/.buildpath
+/.project
+/.idea
+/.vagrant
+.tern-project
+.vimrc
+
+# Project files
+/vendor/
+.env

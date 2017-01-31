@@ -1,0 +1,32 @@
+{
+    "name": "4xxi/patternoftheday",
+    "license": "proprietary",
+    "type": "project",
+    "description": "The app for pattern learning.",
+    "keywords": [],
+    "homepage": "https://4xxi.com",
+    "authors": [
+        {
+            "name": "Maxim Kuznetsov",
+            "email": "mk@4xxi.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "symfony/dom-crawler": "^3.2",
+        "symfony/dotenv": "^3.3@dev",
+        "symfony/console": "^3.2",
+        "symfony/css-selector": "^3.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "dev"
+}
