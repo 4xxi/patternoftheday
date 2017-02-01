@@ -7,19 +7,28 @@ class Pattern
     /** @var string */
     private $title;
 
-    /** @var string */
+    /** @var string|null */
     private $type;
 
-    /** @var string */
+    /** @var string|null */
     private $shortDescription;
 
-    /** @var string */
+    /** @var string|null */
     private $link;
 
+    /** @var string|null */
+    private $imageUrl;
+
+    /** @var string|null */
+    private $authorName;
+
+    /** @var string|null */
+    private $authorLink;
+
     /**
-     * @return string
+     * @return string|null
      */
-    public function getTitle(): string
+    public function getTitle()
     {
         return $this->title;
     }
@@ -29,7 +38,7 @@ class Pattern
      *
      * @return $this
      */
-    public function setTitle(string $title)
+    public function setTitle($title)
     {
         $this->title = $title;
 
@@ -39,17 +48,17 @@ class Pattern
     /**
      * @return string
      */
-    public function getType(): string
+    public function getType()
     {
         return $this->type;
     }
 
     /**
-     * @param string $type
+     * @param string|null $type
      *
      * @return $this
      */
-    public function setType(string $type)
+    public function setType($type)
     {
         $this->type = $type;
 
@@ -57,19 +66,19 @@ class Pattern
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getShortDescription(): string
+    public function getShortDescription()
     {
         return $this->shortDescription;
     }
 
     /**
-     * @param string $shortDescription
+     * @param string|null $shortDescription
      *
      * @return $this
      */
-    public function setShortDescription(string $shortDescription)
+    public function setShortDescription($shortDescription)
     {
         $this->shortDescription = $shortDescription;
 
@@ -77,21 +86,81 @@ class Pattern
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getLink(): string
+    public function getLink()
     {
         return $this->link;
     }
 
     /**
-     * @param string $link
+     * @param string|null $link
      *
      * @return $this
      */
-    public function setLink(string $link)
+    public function setLink($link)
     {
         $this->link = $link;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getImageUrl()
+    {
+        return $this->imageUrl;
+    }
+
+    /**
+     * @param string|null $imageUrl
+     *
+     * @return $this
+     */
+    public function setImageUrl($imageUrl)
+    {
+        $this->imageUrl = $imageUrl;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getAuthorName()
+    {
+        return $this->authorName;
+    }
+
+    /**
+     * @param string|null $authorName
+     *
+     * @return $this
+     */
+    public function setAuthorName($authorName)
+    {
+        $this->authorName = $authorName;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getAuthorLink()
+    {
+        return $this->authorLink;
+    }
+
+    /**
+     * @param string|null $authorLink
+     *
+     * @return $this
+     */
+    public function setAuthorLink($authorLink)
+    {
+        $this->authorLink = $authorLink;
 
         return $this;
     }

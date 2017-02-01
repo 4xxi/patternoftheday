@@ -6,7 +6,7 @@ use Entity\Collection;
 use Entity\Pattern;
 use Entity\SlackNotification;
 use NotificationSender\SlackNotificationSender;
-use Parser\CppReferenceRuWebsiteParser;
+use Parser\RefactoringGuruJSONParser;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -26,7 +26,7 @@ class PatternOfTheDayCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $allPatterns = (new CppReferenceRuWebsiteParser())->getItems();
+        $allPatterns = (new RefactoringGuruJSONParser())->getItems();
 
         $pattern = $this->getPatternOfTheDay($allPatterns);
 

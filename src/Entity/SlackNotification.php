@@ -11,14 +11,29 @@ class SlackNotification implements NotificationInterface
     /** @var string Actually required field */
     private $fallback = '';
 
+    /** @var string|null */
+    private $title;
+
+    /** @var string|null */
+    private $titleLink;
+
+    /** @var string|null */
+    private $imageUrl;
+
+    /** @var string|null */
+    private $authorName;
+
+    /** @var string|null */
+    private $authorLink;
+
     /** @var string */
     private $color = self::COLOR_GOOD;
 
     /** @var string|null */
-    private $pretext = null;
+    private $pretext;
 
     /** @var string|null */
-    private $text = null;
+    private $text;
 
     /** @var array */
     private $fields = [];
@@ -30,21 +45,19 @@ class SlackNotification implements NotificationInterface
      */
     public static function createByPattern(Pattern $pattern)
     {
-        $text = sprintf(
-            '%s [%s] | <%s|Читать>',
-            $pattern->getTitle(),
-            $pattern->getType(),
-            $pattern->getLink()
-        );
+        $text = $pattern->getTitle();
+        if ($pattern->getType()) {
+            $text .= ' ['.$pattern->getType().']';
+        }
 
         $notification = new self();
         $notification->setFallback($text);
-        $notification->setPretext($text);
-        $notification->addField([
-            'title' => null,
-            'value' => $pattern->getShortDescription(),
-            'short' => false,
-        ]);
+        $notification->setTitle($text);
+        $notification->setTitleLink($pattern->getLink());
+        $notification->setText($pattern->getShortDescription());
+        $notification->setImageUrl($pattern->getImageUrl());
+        $notification->setAuthorName($pattern->getAuthorName());
+        $notification->setAuthorLink($pattern->getAuthorLink());
 
         return $notification;
     }
@@ -57,16 +70,21 @@ class SlackNotification implements NotificationInterface
         return [
             'fallback' => $this->getFallback(),
             'color' => $this->getColor(),
+            'title' => $this->getTitle(),
+            'title_link' => $this->getTitleLink(),
+            'image_url' => $this->getImageUrl(),
             'text' => $this->getText(),
-            'pretext' => $this->getPretext(),
+            'pretext' => '<!channel>',
             'fields' => $this->getFields(),
+            'author_name' => $this->getAuthorName(),
+            'author_link' => $this->getAuthorLink(),
         ];
     }
 
     /**
      * @return string
      */
-    public function getFallback(): string
+    public function getFallback()
     {
         return $this->fallback;
     }
@@ -74,29 +92,29 @@ class SlackNotification implements NotificationInterface
     /**
      * @param string $fallback
      */
-    public function setFallback(string $fallback)
+    public function setFallback($fallback)
     {
         $this->fallback = $fallback;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getColor(): string
+    public function getColor()
     {
         return $this->color;
     }
 
     /**
-     * @param string $color
+     * @param string|null $color
      */
-    public function setColor(string $color)
+    public function setColor($color)
     {
         $this->color = $color;
     }
 
     /**
-     * @return string|null
+     * @return string|null|null
      */
     public function getPretext()
     {
@@ -104,15 +122,15 @@ class SlackNotification implements NotificationInterface
     }
 
     /**
-     * @param string $pretext
+     * @param string|null $pretext
      */
-    public function setPretext(string $pretext)
+    public function setPretext($pretext)
     {
         $this->pretext = $pretext;
     }
 
     /**
-     * @return string|null
+     * @return string|null|null
      */
     public function getText()
     {
@@ -120,9 +138,9 @@ class SlackNotification implements NotificationInterface
     }
 
     /**
-     * @param string $text
+     * @param string|null $text
      */
-    public function setText(string $text)
+    public function setText($text)
     {
         $this->text = $text;
     }
@@ -151,5 +169,85 @@ class SlackNotification implements NotificationInterface
     public function setFields(array $fields)
     {
         $this->fields = $fields;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param string|null $title
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getTitleLink()
+    {
+        return $this->titleLink;
+    }
+
+    /**
+     * @param string|null $titleLink
+     */
+    public function setTitleLink($titleLink)
+    {
+        $this->titleLink = $titleLink;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getImageUrl()
+    {
+        return $this->imageUrl;
+    }
+
+    /**
+     * @param string|null $imageUrl
+     */
+    public function setImageUrl($imageUrl)
+    {
+        $this->imageUrl = $imageUrl;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getAuthorName()
+    {
+        return $this->authorName;
+    }
+
+    /**
+     * @param string|null $authorName
+     */
+    public function setAuthorName($authorName)
+    {
+        $this->authorName = $authorName;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getAuthorLink()
+    {
+        return $this->authorLink;
+    }
+
+    /**
+     * @param string|null $authorLink
+     */
+    public function setAuthorLink($authorLink)
+    {
+        $this->authorLink = $authorLink;
     }
 }

@@ -11,15 +11,15 @@ use Symfony\Component\DomCrawler\Crawler;
  * TODO: need to rewrite with 'Strategy' pattern.
  * Each parsed website must have each own strategy which is passed to WebsiteParser.
  */
-class CppReferenceRuWebsiteParser extends AbstractWebsiteParser
+class RefactoringGuruWebsiteParser extends AbstractWebsiteParser
 {
-    const BASE_URL = 'http://cpp-reference.ru';
+    const BASE_URL = 'http://refactoring.guru';
 
     /** @var string */
-    protected $url = self::BASE_URL.'/patterns/catalog/';
+    protected $url = self::BASE_URL.'/ru/design-patterns/catalog';
 
     /** @var string Css-like selector */
-    protected $selector = 'table > tbody > tr';
+    protected $selector = '.pattern-card-container';
 
     /**
      * @return Collection Collection of the parsed items
@@ -31,19 +31,12 @@ class CppReferenceRuWebsiteParser extends AbstractWebsiteParser
         $collection = new PatternCollection();
         /* @var \DOMElement $item */
         $crawler->each(function (Crawler $item, $i) use ($collection) {
-            // Throw out header row.
-            if ($i === 0) {
-                return;
-            }
-
-            $cells = $item->children();
-
             $pattern = new Pattern();
             $pattern
-                ->setTitle(trim($cells->eq(0)->filter('a')->text()).' / '.trim($cells->eq(1)->text()))
-                ->setLink(trim(self::BASE_URL.$cells->eq(0)->filter('a')->attr('href')))
-                ->setType(trim($cells->eq(2)->text()))
-                ->setShortDescription(trim($cells->eq(3)->text()))
+                ->setLink(self::BASE_URL.$item->attr('href'))
+                ->setImageUrl(self::BASE_URL.$item->filter('img')->attr('href'))
+                ->setTitle(trim($item->filter('.pattern-name')->text()).' / '.trim($item->filter('.pattern-aka')->text()))
+                ->setShortDescription('')
                 ->setAuthorName(self::BASE_URL)
                 ->setAuthorLink(self::BASE_URL)
             ;
