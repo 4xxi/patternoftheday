@@ -2,8 +2,8 @@
 
 namespace Command;
 
-use Entity\Collection;
 use Entity\Pattern;
+use Entity\PatternCollection;
 use Entity\SlackNotification;
 use NotificationSender\SlackNotificationSender;
 use Parser\RefactoringGuruJSONParser;
@@ -26,6 +26,7 @@ class PatternOfTheDayCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        /** @var PatternCollection $allPatterns */
         $allPatterns = (new RefactoringGuruJSONParser())->getItems();
 
         $pattern = $this->getPatternOfTheDay($allPatterns);
@@ -37,11 +38,11 @@ class PatternOfTheDayCommand extends Command
     }
 
     /**
-     * @param Collection $collection
+     * @param PatternCollection $collection
      *
      * @return Pattern
      */
-    private function getPatternOfTheDay(Collection $collection) : Pattern
+    private function getPatternOfTheDay(PatternCollection $collection) : Pattern
     {
         $dayOfTheYear = (new \DateTime())->format('z');
 

@@ -6,7 +6,7 @@ use Entity\Collection;
 use Entity\Pattern;
 use Entity\PatternCollection;
 
-class RefactoringGuruJSONParser
+class RefactoringGuruJSONParser implements PatternParserInterface
 {
     const BASE_URL = 'http://refactoring.guru';
 
@@ -14,9 +14,9 @@ class RefactoringGuruJSONParser
     protected $url = self::BASE_URL.'/ajax/content/static.json';
 
     /**
-     * @return Collection Collection of the parsed items
+     * @return PatternCollection Collection of the parsed items
      */
-    public function getItems() : Collection
+    public function getItems() : PatternCollection
     {
         $data = json_decode(file_get_contents($this->url), true);
 
@@ -28,7 +28,7 @@ class RefactoringGuruJSONParser
 
             $pattern = new Pattern();
             $pattern
-                ->setTitle($item['title'].' / '.implode(',', $item['aka']))
+                ->setTitle($item['title'].' / '.implode(' / ', $item['aka']))
                 ->setShortDescription($item['description'])
                 ->setType($item['parent']['title'])
                 ->setLink(self::BASE_URL.$item['href'])

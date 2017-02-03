@@ -2,7 +2,6 @@
 
 namespace Parser;
 
-use Entity\Collection;
 use Entity\Pattern;
 use Entity\PatternCollection;
 use Symfony\Component\DomCrawler\Crawler;
@@ -22,9 +21,9 @@ class CppReferenceRuWebsiteParser extends AbstractWebsiteParser
     protected $selector = 'table > tbody > tr';
 
     /**
-     * @return Collection Collection of the parsed items
+     * @return PatternCollection Collection of the parsed items
      */
-    public function getItems() : Collection
+    public function getItems() : PatternCollection
     {
         $crawler = parent::parse();
 

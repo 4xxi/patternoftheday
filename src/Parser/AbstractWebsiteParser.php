@@ -2,10 +2,10 @@
 
 namespace Parser;
 
-use Entity\Collection;
+use Entity\PatternCollection;
 use Symfony\Component\DomCrawler\Crawler;
 
-abstract class AbstractWebsiteParser
+abstract class AbstractWebsiteParser implements PatternParserInterface
 {
     /** @var string */
     protected $url = null;
@@ -14,9 +14,9 @@ abstract class AbstractWebsiteParser
     protected $selector = null;
 
     /**
-     * @return Collection
+     * @return PatternCollection
      */
-    abstract public function getItems() : Collection;
+    abstract public function getItems() : PatternCollection;
 
     /**
      * Parse page and return selected elements.

@@ -22,9 +22,9 @@ class RefactoringGuruWebsiteParser extends AbstractWebsiteParser
     protected $selector = '.pattern-card-container';
 
     /**
-     * @return Collection Collection of the parsed items
+     * @return PatternCollection Collection of the parsed items
      */
-    public function getItems() : Collection
+    public function getItems() : PatternCollection
     {
         $crawler = parent::parse();
 
