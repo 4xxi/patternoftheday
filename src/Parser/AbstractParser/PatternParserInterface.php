@@ -1,6 +1,6 @@
 <?php
 
-namespace Parser;
+namespace Parser\AbstractParser;
 
 use Entity\PatternCollection;
 

@@ -2,12 +2,10 @@
 
 namespace NotificationSender;
 
-use Entity\SlackNotification;
+use Entity\Notification\SlackNotificationInterface;
 
-class SlackNotificationSender implements NotificationSenderInterface
+class SlackNotificationSender
 {
-    const MESSAGE_COLOR = 'good';
-
     /** @var string */
     private $channel = null;
 
@@ -25,25 +23,47 @@ class SlackNotificationSender implements NotificationSenderInterface
     }
 
     /**
-     * @param SlackNotification $notification
+     * @param SlackNotificationInterface $notification
      *
-     * @return bool
+     * @return bool|string Returns true or error message string
      */
-    public function send($notification): bool
+    public function send(SlackNotificationInterface $notification): bool
     {
         $url = $this->hookUrl;
         $data = [
             'channel' => $this->channel,
-            'attachments' => [$notification->asAttachment()],
+            'attachments' => [$this->buildAttachmentByNotification($notification)],
         ];
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data, JSON_FORCE_OBJECT));
+        curl_setopt($ch, CURLOPT_FAILONERROR, true);
         curl_exec($ch);
+        $error = curl_error($ch);
         curl_close($ch);
 
-        return true;
+        return $error ?: true;
+    }
+
+    /**
+     * @param SlackNotificationInterface $notification
+     *
+     * @return array
+     */
+    private function buildAttachmentByNotification(SlackNotificationInterface $notification)
+    {
+        return [
+            'pretext' => $notification->getPretext(),
+            'fallback' => $notification->getFallback(),
+            'color' => $notification->getColor(),
+            'title' => $notification->getTitle(),
+            'title_link' => $notification->getTitleLink(),
+            'image_url' => $notification->getImageUrl(),
+            'text' => $notification->getText(),
+            'author_name' => $notification->getAuthorName(),
+            'author_link' => $notification->getAuthorLink(),
+        ];
     }
 }

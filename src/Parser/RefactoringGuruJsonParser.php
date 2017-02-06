@@ -2,23 +2,23 @@
 
 namespace Parser;
 
-use Entity\Collection;
 use Entity\Pattern;
 use Entity\PatternCollection;
+use Parser\AbstractParser\AbstractJsonParser;
+use Parser\AbstractParser\PatternParserInterface;
 
-class RefactoringGuruJSONParser implements PatternParserInterface
+class RefactoringGuruJsonParser extends AbstractJsonParser implements PatternParserInterface
 {
     const BASE_URL = 'http://refactoring.guru';
 
-    /** @var string */
-    protected $url = self::BASE_URL.'/ajax/content/static.json';
+    const URL = self::BASE_URL.'/ajax/content/static.json';
 
     /**
      * @return PatternCollection Collection of the parsed items
      */
     public function getItems() : PatternCollection
     {
-        $data = json_decode(file_get_contents($this->url), true);
+        $data = $this->parse(self::URL);
 
         $collection = new PatternCollection();
         foreach ($data['content'] as $item) {

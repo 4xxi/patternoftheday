@@ -5,7 +5,7 @@ namespace Entity;
 class Collection implements \ArrayAccess, \IteratorAggregate, \Countable
 {
     /** @var string */
-    const ELEMENT_TYPE = null;
+    protected static $elementType = null;
 
     /** @var array */
     private $collection = [];
@@ -39,7 +39,7 @@ class Collection implements \ArrayAccess, \IteratorAggregate, \Countable
      */
     public function offsetSet($offset, $value)
     {
-        if (self::ELEMENT_TYPE && !is_a($value, self::ELEMENT_TYPE)) {
+        if (self::$elementType && !is_a($value, self::$elementType)) {
             throw new \UnexpectedValueException();
         }
 

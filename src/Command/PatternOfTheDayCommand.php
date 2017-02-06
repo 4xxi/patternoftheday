@@ -2,11 +2,11 @@
 
 namespace Command;
 
+use Entity\Notification\SlackNotificationPatternAdapter;
 use Entity\Pattern;
 use Entity\PatternCollection;
-use Entity\SlackNotification;
 use NotificationSender\SlackNotificationSender;
-use Parser\RefactoringGuruJSONParser;
+use Parser\SenderFactory;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -26,15 +26,19 @@ class PatternOfTheDayCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        /** @var PatternCollection $allPatterns */
-        $allPatterns = (new RefactoringGuruJSONParser())->getItems();
+        /** @var PatternCollection $catalogue */
+        $catalogue = SenderFactory::create(SenderFactory::SENDER_REFACTORING_GURU_JSON)->getItems();
 
-        $pattern = $this->getPatternOfTheDay($allPatterns);
+        $pattern = $this->getPatternOfTheDay($catalogue);
 
-        $message = SlackNotification::createByPattern($pattern);
+        $notification = new SlackNotificationPatternAdapter($pattern);
 
         $sender = new SlackNotificationSender(getenv('slack_channel'), getenv('slack_hook_url'));
-        $sender->send($message);
+        $result = $sender->send($notification);
+
+        if ($result !== true) {
+            $output->writeln('Error: '.$result);
+        }
     }
 
     /**

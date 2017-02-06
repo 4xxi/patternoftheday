@@ -2,31 +2,25 @@
 
 namespace Parser;
 
-use Entity\Collection;
 use Entity\Pattern;
 use Entity\PatternCollection;
+use Parser\AbstractParser\AbstractWebsiteParser;
 use Symfony\Component\DomCrawler\Crawler;
 
-/*
- * TODO: need to rewrite with 'Strategy' pattern.
- * Each parsed website must have each own strategy which is passed to WebsiteParser.
- */
 class RefactoringGuruWebsiteParser extends AbstractWebsiteParser
 {
     const BASE_URL = 'http://refactoring.guru';
 
-    /** @var string */
-    protected $url = self::BASE_URL.'/ru/design-patterns/catalog';
+    const URL = self::BASE_URL.'/ru/design-patterns/catalog';
 
-    /** @var string Css-like selector */
-    protected $selector = '.pattern-card-container';
+    const SELECTOR = '.pattern-card-container';
 
     /**
      * @return PatternCollection Collection of the parsed items
      */
     public function getItems() : PatternCollection
     {
-        $crawler = parent::parse();
+        $crawler = $this->parse(self::URL, self::SELECTOR);
 
         $collection = new PatternCollection();
         /* @var \DOMElement $item */
