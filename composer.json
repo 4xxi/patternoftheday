@@ -1,6 +1,6 @@
 {
     "name": "4xxi/patternoftheday",
-    "license": "proprietary",
+    "license": "MIT",
     "type": "project",
     "description": "The app for pattern learning.",
     "keywords": [],
@@ -9,6 +9,10 @@
         {
             "name": "Maxim Kuznetsov",
             "email": "mk@4xxi.com"
+        },
+        {
+            "name": "4xxi",
+            "email": "4xxi.com"
         }
     ],
     "require": {
