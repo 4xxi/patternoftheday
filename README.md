@@ -21,6 +21,9 @@ The app parses programming pattern catalogue and sends one of them to subscriber
 ```php application.php```
 
 5. Or you can add a rule in crontab. F.e. daily rule
-```crontab -e
-0 7 * * * cd /var/www/patternoftheday && php application.php
-```
+```crontab -e```
+```0 7 * * * cd /var/www/patternoftheday && php application.php```
+
+
+## License ##
+MIT
