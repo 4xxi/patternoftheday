@@ -1,6 +1,6 @@
 <?php
 
-namespace Entity\Notification;
+namespace Fourxxi\Entity\Notification;
 
 interface SlackNotificationInterface
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace Command;
+namespace Fourxxi\Command;
 
-use Entity\Notification\SlackNotificationPatternAdapter;
-use Entity\Pattern;
-use Entity\PatternCollection;
-use NotificationSender\SlackNotificationSender;
-use Parser\SenderFactory;
+use Fourxxi\Entity\Notification\SlackNotificationPatternAdapter;
+use Fourxxi\Entity\Pattern;
+use Fourxxi\Entity\PatternCollection;
+use Fourxxi\NotificationSender\SlackNotificationSender;
+use Fourxxi\Parser\SenderFactory;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

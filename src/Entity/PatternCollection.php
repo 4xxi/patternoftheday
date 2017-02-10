@@ -1,6 +1,6 @@
 <?php
 
-namespace Entity;
+namespace Fourxxi\Entity;
 
 class PatternCollection extends Collection
 {

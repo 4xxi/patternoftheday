@@ -1,6 +1,6 @@
 <?php
 
-namespace Parser;
+namespace Fourxxi\Parser;
 
 use Psr\Log\InvalidArgumentException;
 

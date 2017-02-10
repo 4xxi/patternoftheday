@@ -1,6 +1,6 @@
 <?php
 
-namespace Parser\AbstractParser;
+namespace Fourxxi\Parser\AbstractParser;
 
 use Symfony\Component\DomCrawler\Crawler;
 

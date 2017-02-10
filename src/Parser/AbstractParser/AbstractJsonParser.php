@@ -1,6 +1,6 @@
 <?php
 
-namespace Parser\AbstractParser;
+namespace Fourxxi\Parser\AbstractParser;
 
 abstract class AbstractJsonParser implements PatternParserInterface
 {

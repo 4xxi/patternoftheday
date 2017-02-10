@@ -1,8 +1,8 @@
 <?php
 
-namespace Parser\AbstractParser;
+namespace Fourxxi\Parser\AbstractParser;
 
-use Entity\PatternCollection;
+use Fourxxi\Entity\PatternCollection;
 
 interface PatternParserInterface
 {

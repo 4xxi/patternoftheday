@@ -1,10 +1,10 @@
 <?php
 
-namespace Parser;
+namespace Fourxxi\Parser;
 
-use Entity\Pattern;
-use Entity\PatternCollection;
-use Parser\AbstractParser\AbstractWebsiteParser;
+use Fourxxi\Entity\Pattern;
+use Fourxxi\Entity\PatternCollection;
+use Fourxxi\Parser\AbstractParser\AbstractWebsiteParser;
 use Symfony\Component\DomCrawler\Crawler;
 
 class CppReferenceRuWebsiteParser extends AbstractWebsiteParser

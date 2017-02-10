@@ -1,8 +1,8 @@
 <?php
 
-namespace Entity\Notification;
+namespace Fourxxi\Entity\Notification;
 
-use Entity\Pattern;
+use Fourxxi\Entity\Pattern;
 
 class SlackNotificationPatternAdapter implements SlackNotificationInterface
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace NotificationSender;
+namespace Fourxxi\NotificationSender;
 
-use Entity\Notification\SlackNotificationInterface;
+use Fourxxi\Entity\Notification\SlackNotificationInterface;
 
 class SlackNotificationSender
 {

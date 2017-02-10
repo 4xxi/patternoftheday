@@ -1,11 +1,11 @@
 <?php
 
-namespace Parser;
+namespace Fourxxi\Parser;
 
-use Entity\Pattern;
-use Entity\PatternCollection;
-use Parser\AbstractParser\AbstractJsonParser;
-use Parser\AbstractParser\PatternParserInterface;
+use Fourxxi\Entity\Pattern;
+use Fourxxi\Entity\PatternCollection;
+use Fourxxi\Parser\AbstractParser\AbstractJsonParser;
+use Fourxxi\Parser\AbstractParser\PatternParserInterface;
 
 class RefactoringGuruJsonParser extends AbstractJsonParser implements PatternParserInterface
 {
