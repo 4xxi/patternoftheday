@@ -24,7 +24,7 @@ class CppReferenceRuWebsiteParser extends AbstractWebsiteParser
 
         $collection = new PatternCollection();
         /* @var \DOMElement $item */
-        $crawler->each(function (Crawler $item, $i) use ($collection) {
+        $crawler->each(function(Crawler $item, $i) use ($collection) {
             // Throw out header row.
             if ($i === 0) {
                 return;
