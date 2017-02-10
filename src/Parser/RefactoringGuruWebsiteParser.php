@@ -23,8 +23,10 @@ class RefactoringGuruWebsiteParser extends AbstractWebsiteParser
         $crawler = $this->parse(self::URL, self::SELECTOR);
 
         $collection = new PatternCollection();
-        /* @var \DOMElement $item */
-        $crawler->each(function(Crawler $item) use ($collection) {
+
+        /* @var \DOMElement $itemNode */
+        foreach ($crawler->getIterator() as $i => $itemNode) {
+            $item = new Crawler($itemNode);
             $pattern = new Pattern();
             $pattern
                 ->setLink(self::BASE_URL.$item->attr('href'))
@@ -36,7 +38,7 @@ class RefactoringGuruWebsiteParser extends AbstractWebsiteParser
             ;
 
             $collection[] = $pattern;
-        });
+        }
 
         return $collection;
     }

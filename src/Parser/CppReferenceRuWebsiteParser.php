@@ -23,13 +23,13 @@ class CppReferenceRuWebsiteParser extends AbstractWebsiteParser
         $crawler = $this->parse(self::URL, self::SELECTOR);
 
         $collection = new PatternCollection();
-        /* @var \DOMElement $item */
-        $crawler->each(function(Crawler $item, $i) use ($collection) {
-            // Throw out header row.
+        /* @var \DOMElement $itemNode */
+        foreach ($crawler->getIterator() as $i => $itemNode) {
             if ($i === 0) {
-                return;
+                continue;
             }
 
+            $item = new Crawler($itemNode);
             $cells = $item->children();
 
             $pattern = new Pattern();
@@ -43,7 +43,7 @@ class CppReferenceRuWebsiteParser extends AbstractWebsiteParser
             ;
 
             $collection[] = $pattern;
-        });
+        }
 
         return $collection;
     }
