@@ -2,13 +2,18 @@
 
 The app parses programming pattern catalogue and sends one of them to subscribers daily.
 
+## Badges
+![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/4xxi/patternoftheday/badges/quality-score.png?b=master)
+![Code Coverage](https://scrutinizer-ci.com/g/4xxi/patternoftheday/badges/coverage.png?b=master)
+![Build Status](https://scrutinizer-ci.com/g/4xxi/patternoftheday/badges/build.png?b=master)
+
 ## Requirements
 * PHP 7.0 and up.
 
 ## Installation ##
 
 1. Clone repo:
-```git clone https://pluseg@bitbucket.org/4xxi/patternoftheday.git patternoftheday```
+```git clone https://pluseg@github.com/4xxi/patternoftheday.git .```
 
 2. Install dependencies via composer:
 ```composer install```
@@ -20,8 +25,8 @@ The app parses programming pattern catalogue and sends one of them to subscriber
 4. Run application:
 ```php application.php```
 
-5. Or you can add a rule in crontab. F.e. daily rule
-
-```crontab -e```
-
+5. Or you can add a rule in crontab. F.e. daily rule in `crontab -e`:
 ```0 7 * * * cd /var/www/patternoftheday && php application.php```
+
+## License ##
+MIT

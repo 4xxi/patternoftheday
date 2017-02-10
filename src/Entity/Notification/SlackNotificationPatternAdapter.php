@@ -20,7 +20,7 @@ class SlackNotificationPatternAdapter implements SlackNotificationInterface
     public function getFallback()
     {
         $text = $this->pattern->getTitle();
-        if ($this->pattern->getType()) {
+        if (!is_empty($this->pattern->getType())) {
             $text .= ' ['.$this->pattern->getType().']';
         }
 
