@@ -7,6 +7,8 @@ The app parses programming pattern catalogue and sends one of them to subscriber
 ![Code Coverage](https://scrutinizer-ci.com/g/4xxi/patternoftheday/badges/coverage.png?b=master)
 ![Build Status](https://scrutinizer-ci.com/g/4xxi/patternoftheday/badges/build.png?b=master)
 
+![SensioLabsInsight Code Quality](https://insight.sensiolabs.com/projects/508b5c96-e621-4f79-9db2-777c67137c21/big.png)
+
 ## Requirements
 * PHP 7.0 and up.
 
