@@ -2,7 +2,7 @@
 
 namespace Fourxxi\Parser;
 
-use Psr\Log\InvalidArgumentException;
+use Fourxxi\Exception\NotFoundParserException;
 
 class SenderFactory
 {
@@ -10,6 +10,13 @@ class SenderFactory
     const SENDER_REFACTORING_GURU_HTML = 'refactoring_guru.html';
     const SENDER_REFACTORING_GURU_JSON = 'refactoring_guru.json';
 
+    /**
+     * @param string $name
+     *
+     * @return CppReferenceRuWebsiteParser|RefactoringGuruJsonParser|RefactoringGuruWebsiteParser
+     *
+     * @throws NotFoundParserException
+     */
     public static function create(string $name)
     {
         switch ($name) {
@@ -20,7 +27,7 @@ class SenderFactory
             case self::SENDER_REFACTORING_GURU_HTML:
                 return new RefactoringGuruWebsiteParser();
             default:
-                throw new InvalidArgumentException('Undefined parser passed: '.$name);
+                throw new NotFoundParserException('Undefined parser passed: '.$name);
         }
     }
 }
