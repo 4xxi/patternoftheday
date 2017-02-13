@@ -1,0 +1,15 @@
+checks:
+    php: true
+filter:
+    excluded_paths:
+        - tests/*
+coding_style:
+    php: {  }
+build:
+    tests:
+        override:
+            -
+                command: 'phpunit --coverage-clover=clover-report'
+                coverage:
+                    file: 'clover-report'
+                    format: 'clover'
