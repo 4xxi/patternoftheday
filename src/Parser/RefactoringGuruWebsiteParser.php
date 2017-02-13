@@ -26,20 +26,27 @@ class RefactoringGuruWebsiteParser extends AbstractWebsiteParser
 
         /* @var \DOMElement $itemNode */
         foreach ($crawler->getIterator() as $i => $itemNode) {
-            $item = new Crawler($itemNode);
-            $pattern = new Pattern();
-            $pattern
-                ->setLink(self::BASE_URL.$item->attr('href'))
-                ->setImageUrl(self::BASE_URL.$item->filter('img')->attr('href'))
-                ->setTitle(trim($item->filter('.pattern-name')->text()).' / '.trim($item->filter('.pattern-aka')->text()))
-                ->setShortDescription('')
-                ->setAuthorName(self::BASE_URL)
-                ->setAuthorLink(self::BASE_URL)
-            ;
-
-            $collection[] = $pattern;
+            $collection[] = $this->createPattern(new Crawler($itemNode));
         }
 
         return $collection;
+    }
+
+    /**
+     * @param Crawler $item
+     *
+     * @return Pattern
+     */
+    private function createPattern(Crawler $item): Pattern
+    {
+        $pattern = new Pattern();
+        $pattern
+            ->setLink(self::BASE_URL.$item->attr('href'))
+            ->setImageUrl(self::BASE_URL.$item->filter('img')->attr('href'))
+            ->setTitle(trim($item->filter('.pattern-name')->text()).' / '.trim($item->filter('.pattern-aka')->text()))
+            ->setShortDescription('')
+            ->setAuthorName(self::BASE_URL)
+            ->setAuthorLink(self::BASE_URL)
+        ;
     }
 }

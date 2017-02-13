@@ -18,7 +18,7 @@ class CppReferenceRuWebsiteParser extends AbstractWebsiteParser
     /**
      * @return PatternCollection Collection of the parsed items
      */
-    public function getItems() : PatternCollection
+    public function getItems(): PatternCollection
     {
         $crawler = $this->parse(self::URL, self::SELECTOR);
 
@@ -29,22 +29,29 @@ class CppReferenceRuWebsiteParser extends AbstractWebsiteParser
                 continue;
             }
 
-            $item = new Crawler($itemNode);
-            $cells = $item->children();
-
-            $pattern = new Pattern();
-            $pattern
-                ->setTitle(trim($cells->eq(0)->filter('a')->text()).' / '.trim($cells->eq(1)->text()))
-                ->setLink(trim(self::BASE_URL.$cells->eq(0)->filter('a')->attr('href')))
-                ->setType(trim($cells->eq(2)->text()))
-                ->setShortDescription(trim($cells->eq(3)->text()))
-                ->setAuthorName(self::BASE_URL)
-                ->setAuthorLink(self::BASE_URL)
-            ;
-
-            $collection[] = $pattern;
+            $collection[] = $this->createPattern(new Crawler($itemNode));
         }
 
         return $collection;
+    }
+
+    /**
+     * @param Crawler $item
+     *
+     * @return Pattern
+     */
+    private function createPattern(Crawler $item): Pattern
+    {
+        $cells = $item->children();
+
+        $pattern = new Pattern();
+        $pattern
+            ->setTitle(trim($cells->eq(0)->filter('a')->text()).' / '.trim($cells->eq(1)->text()))
+            ->setLink(trim(self::BASE_URL.$cells->eq(0)->filter('a')->attr('href')))
+            ->setType(trim($cells->eq(2)->text()))
+            ->setShortDescription(trim($cells->eq(3)->text()))
+            ->setAuthorName(self::BASE_URL)
+            ->setAuthorLink(self::BASE_URL)
+        ;
     }
 }

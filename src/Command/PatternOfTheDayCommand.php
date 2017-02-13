@@ -7,7 +7,7 @@ use Fourxxi\Entity\Pattern;
 use Fourxxi\Entity\PatternCollection;
 use Fourxxi\Exception\ParsingException;
 use Fourxxi\NotificationSender\SlackNotificationSender;
-use Fourxxi\Parser\SenderFactory;
+use Fourxxi\Parser\ParserFactory;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -31,7 +31,7 @@ class PatternOfTheDayCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         /** @var ParserInterface */
-        $parser = SenderFactory::create(SenderFactory::SENDER_REFACTORING_GURU_JSON);
+        $parser = ParserFactory::create(ParserFactory::PARSER_REFACTORING_GURU_JSON);
 
         try {
             /** @var PatternCollection $catalogue */
@@ -45,11 +45,7 @@ class PatternOfTheDayCommand extends Command
         $notification = new SlackNotificationPatternAdapter($pattern);
 
         $sender = new SlackNotificationSender(getenv('slack_channel'), getenv('slack_hook_url'));
-        $result = $sender->send($notification);
-
-        if ($result !== true) {
-            $output->writeln('Error: '.$result);
-        }
+        $sender->send($notification);
     }
 
     /**
