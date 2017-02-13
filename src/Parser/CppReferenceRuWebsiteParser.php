@@ -11,36 +11,18 @@ class CppReferenceRuWebsiteParser extends AbstractWebsiteParser
 {
     const BASE_URL = 'http://cpp-reference.ru';
 
-    const URL = self::BASE_URL.'/patterns/catalog/';
+    /** @var string */
+    protected static $url = self::BASE_URL.'/patterns/catalog/';
 
-    const SELECTOR = 'table > tbody > tr';
-
-    /**
-     * @return PatternCollection Collection of the parsed items
-     */
-    public function getItems(): PatternCollection
-    {
-        $crawler = $this->parse(self::URL, self::SELECTOR);
-
-        $collection = new PatternCollection();
-        /* @var \DOMElement $itemNode */
-        foreach ($crawler->getIterator() as $i => $itemNode) {
-            if ($i === 0) {
-                continue;
-            }
-
-            $collection[] = $this->createPattern(new Crawler($itemNode));
-        }
-
-        return $collection;
-    }
+    /** @var string */
+    protected static $selector = 'table > tbody > tr:not(:contains(Оригинальное название))';
 
     /**
      * @param Crawler $item
      *
      * @return Pattern
      */
-    private function createPattern(Crawler $item): Pattern
+    protected function createPattern(Crawler $item): Pattern
     {
         $cells = $item->children();
 
@@ -53,5 +35,7 @@ class CppReferenceRuWebsiteParser extends AbstractWebsiteParser
             ->setAuthorName(self::BASE_URL)
             ->setAuthorLink(self::BASE_URL)
         ;
+
+        return $pattern;
     }
 }

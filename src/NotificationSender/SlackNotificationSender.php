@@ -27,7 +27,7 @@ class SlackNotificationSender
      *
      * @throws SlackNotificationCurlException
      */
-    public function send(SlackNotificationInterface $notification): void
+    public function send(SlackNotificationInterface $notification)
     {
         $url = $this->hookUrl;
         $data = [
@@ -64,7 +64,7 @@ class SlackNotificationSender
      *
      * @throws SlackNotificationCurlException
      */
-    private function curlRequest(string $url, array $data): void
+    private function curlRequest(string $url, array $data)
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);

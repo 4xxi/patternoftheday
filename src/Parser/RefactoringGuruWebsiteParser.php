@@ -11,33 +11,18 @@ class RefactoringGuruWebsiteParser extends AbstractWebsiteParser
 {
     const BASE_URL = 'http://refactoring.guru';
 
-    const URL = self::BASE_URL.'/ru/design-patterns/catalog';
+    /** @var string */
+    protected static $url = self::BASE_URL.'/ru/design-patterns/catalog';
 
-    const SELECTOR = '.pattern-card-container';
-
-    /**
-     * @return PatternCollection Collection of the parsed items
-     */
-    public function getItems() : PatternCollection
-    {
-        $crawler = $this->parse(self::URL, self::SELECTOR);
-
-        $collection = new PatternCollection();
-
-        /* @var \DOMElement $itemNode */
-        foreach ($crawler->getIterator() as $i => $itemNode) {
-            $collection[] = $this->createPattern(new Crawler($itemNode));
-        }
-
-        return $collection;
-    }
+    /** @var string */
+    protected static $selector = '.pattern-card-container';
 
     /**
      * @param Crawler $item
      *
      * @return Pattern
      */
-    private function createPattern(Crawler $item): Pattern
+    protected function createPattern(Crawler $item): Pattern
     {
         $pattern = new Pattern();
         $pattern
@@ -48,5 +33,7 @@ class RefactoringGuruWebsiteParser extends AbstractWebsiteParser
             ->setAuthorName(self::BASE_URL)
             ->setAuthorLink(self::BASE_URL)
         ;
+
+        return $pattern;
     }
 }

@@ -7,11 +7,11 @@ use Fourxxi\Entity\Pattern;
 use Fourxxi\Entity\PatternCollection;
 use Fourxxi\Exception\ParsingException;
 use Fourxxi\NotificationSender\SlackNotificationSender;
+use Fourxxi\Parser\AbstractParser\PatternParserInterface;
 use Fourxxi\Parser\ParserFactory;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\CssSelector\Parser\ParserInterface;
 
 class PatternOfTheDayCommand extends Command
 {
@@ -30,7 +30,7 @@ class PatternOfTheDayCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        /** @var ParserInterface */
+        /** @var PatternParserInterface */
         $parser = ParserFactory::create(ParserFactory::PARSER_REFACTORING_GURU_JSON);
 
         try {
