@@ -11,7 +11,7 @@ class RefactoringGuruJsonParser extends AbstractJsonParser implements PatternPar
 {
     const BASE_URL = 'http://refactoring.guru';
 
-    const URL = self::BASE_URL.'/ajax/content/static.json';
+    const URL = self::BASE_URL.'/ru/ajax/structure/all.json';
     const BASE_IMAGE_URL = self::BASE_URL.'/images/patterns/cards/';
 
     /**
@@ -23,7 +23,7 @@ class RefactoringGuruJsonParser extends AbstractJsonParser implements PatternPar
 
         $collection = new PatternCollection();
         foreach ($data['content'] as $item) {
-            if ($this->isItemAboutPattern($item)) {
+            if (!$this->isItemAboutPattern($item)) {
                 continue;
             }
 
@@ -42,7 +42,7 @@ class RefactoringGuruJsonParser extends AbstractJsonParser implements PatternPar
         $pattern = new Pattern();
         $pattern
             ->setTitle($item['title'].' / '.implode(' / ', $item['aka']))
-            ->setShortDescription($item['description'])
+            ->setShortDescription(strip_tags($item['content_description']))
             ->setType($item['parent']['title'])
             ->setLink(self::BASE_URL.$item['href'])
             ->setImageUrl(self::BASE_IMAGE_URL.$item['name'].'.png')
@@ -58,6 +58,6 @@ class RefactoringGuruJsonParser extends AbstractJsonParser implements PatternPar
      */
     private function isItemAboutPattern(array $item): bool
     {
-        return $item['locale'] !== 'ru' || $item['type'] !== 'pattern';
+        return $item['type'] === 'pattern';
     }
 }
